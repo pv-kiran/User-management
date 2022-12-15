@@ -1,7 +1,7 @@
 <section class="signup-body">
     <div class="signup-container">
     <h2>{{headText}}</h2>
-    <form action="/user/save" method="post" class="signup">
+    <form action="/user/save" method="post" class="signup" id="form">
 
         {{#if isSignUp}}
            <input type="text" name="name" id="name" placeholder="Name">
@@ -9,7 +9,7 @@
            <input type="text" name="email" id="email" placeholder="Email">
            <input type="text" name="password" id="password" placeholder="Password">
            <input type="submit" value="Submit" class="submit">
-
+           <div class="error"></div>
     </form>
 </div>
 </section>

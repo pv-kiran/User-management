@@ -57,3 +57,19 @@ input[type='text'] {
 .signup-container h2 {
    font-size: 5rem;
 }
+
+.error {
+    width: 40rem;
+    height: 0;
+    margin: 1.5rem 0;
+    background-color: rgb(220, 95, 95);
+    /* transform: scale(0); */
+    /* display: none; */
+    transition: all .2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.4rem;
+    border-radius: .4rem;
+}
