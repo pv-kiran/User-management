@@ -9,6 +9,16 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 
+
+
+
+
+// Importing routes
+const userRoute = require('./routes/User/user');
+const adminRoute = require('./routes/Admin/admin');
+
+
+
 // hbs configuration
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -26,13 +36,21 @@ app.engine(
 
 
 
-app.get('/' , (req,res) => {
-    res.render('home');
-})
 
-app.get('/about' , (req,res) => {
-    res.render('about');
-})
+// route setup
+
+app.use('/user' , userRoute );
+app.use('/admin' , adminRoute );
+
+
+
+// app.get('/' , (req,res) => {
+//     res.render('home');
+// })
+
+// app.get('/about' , (req,res) => {
+//     res.render('about');
+// })
 
 
 
