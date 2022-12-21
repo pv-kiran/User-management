@@ -4,6 +4,7 @@ var form = document.querySelector("#form");
 
 form.addEventListener('submit' , function(e) {
     e.preventDefault(); 
+    console.log('Hello ... signin')
     let isValid = validate()
     if(isValid) {
         document.querySelector("#form").submit();

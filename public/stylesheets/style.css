@@ -43,6 +43,11 @@ input[type='text'] {
     font-size: 1.3rem;
 }
 
+input[type='text']:focus {
+    outline: 0;
+    border-bottom: 1px green solid;
+}
+
 .submit {
     margin-top: 1rem;
     padding: .8rem;
