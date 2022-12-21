@@ -4,11 +4,32 @@ const path = require('path');
 const hbs = require('express-handlebars');
 const mongoose = require('mongoose');
 
+
+// session handling packages
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+
+
 // midddlewares
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+
+
+
+// creating 24 hours from milliseconds
+const oneDay = 1000 * 60 * 60 * 24;
+
+//session handling middleware
+app.use(cookieParser());
+
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
 
 
 
@@ -39,6 +60,19 @@ app.engine(
 
 
 // route setup
+
+app.get('/',(req,res) => {
+  session=req.session;
+  if(session.userid){
+      res.render('home');
+  } else {
+
+     res.render('signup');
+
+  }
+});
+
+
 
 app.use('/user' , userRoute );
 app.use('/admin' , adminRoute );
