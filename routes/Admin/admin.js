@@ -14,9 +14,14 @@ const router = express.Router();
 //     resave: false
 // }));
 
+router.use((req, res, next) => {
+    res.set('cache-control', 'no-cache,private,no-store,must-revalidate,max-stale=0,post-check=0,pre-check=0')
+    next();
+});
 
 const {isAuthenticated, isAdmin} = require('../../middlewares/auth');
 const User = require('../../models/User');
+
 
 
 const {getAllUsers , getAddUser , addNewUser , getUser, updateUser, searchUser, deleteUser } = require('../../controllers/adminController');
