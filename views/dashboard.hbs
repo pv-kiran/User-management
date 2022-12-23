@@ -5,7 +5,7 @@
 <h1 class="dashboard-head">ADMIN DASHBOARD</h1>
 <div class="head-bar">
   <a href="/admin/adduser" class="btn-add">ADD USER</a>
-  <form action="/admin/search" >
+  <form action="/admin/search" method="post">
      <input type="text" name="search" id="search" autocomplete="off">
      <input type="submit" value="Search" class="btn-srch">
   </form>
@@ -21,10 +21,10 @@
   <tr class="edit-row">
     <td>{{fullName}}</td>
     <td>{{email}}</td>
-    <td >
-        <a class="btn btn-view" href="/admin/user/{{_id}}">View</a>
+    <td>
+        <a class="btn btn-view" href="/admin/user/{{_id}}">EDIT</a>
         {{!-- <a class="btn btn-edit" data-url="{{_id}}">Edit</a> --}}
-        <a class="btn btn-delete" data-url="{{_id}}">Delete</a>
+        <a class="btn btn-delete" data-url="{{_id}}">DELETE</a>
     </td>
   </tr>
   {{/each}}

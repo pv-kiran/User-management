@@ -19,15 +19,19 @@ router.get('/' , isAuthenticated  , async (req,res) => {
 
 });
 
+
+// signup 
 router.get('/signup' , (req,res) => {
     res.render('signup');
 });
 
+
+// signin router
 router.get('/signin' , (req,res) => {
     res.render('signin');
 });
 
-// sign up router / User Registration
+// sign up router for  / User Registration
 router.post('/save' , (req,res) => {
     const {name , email , password} = req.body ;
 
@@ -98,7 +102,7 @@ router.post('/login' , (req,res) => {
 // logout route
 router.get('/logout',(req,res) => {
     req.session.destroy();
-    res.redirect('/user');
+    res.redirect('/user/signin');
 });
 
 
