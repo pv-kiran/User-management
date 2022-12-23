@@ -1,41 +1,33 @@
 const express = require('express');
 const router = express.Router();
 
+const {isAuthenticated , isAdmin} = require('../../middlewares/auth');
 
 
 // model configuration
 const User = require('../../models/User');
 
 
-router.get('/',(req,res) => {
-    session=req.session;
-    console.log(session.userid)
-    if(session.userid){
-        fetchUser();
-        async function fetchUser() {
-            try {
-                const user = await User.find({email: session.userid})
-                res.render('home' , {userName: user[0].fullName , userEmail: user[0].email})
-            } catch(e) {
-                console.log(e);
-            }
-            
-        }
-    } else {
-       res.render('signup');
+router.get('/' , isAuthenticated  , async (req,res) => {
+
+    try {
+        const user = await User.find({email: session.userid})
+        res.render('home' , {userName: user[0].fullName , userEmail: user[0].email})
+    } catch(e) {
+        console.log(e);
     }
+
 });
 
 router.get('/signup' , (req,res) => {
-    const isSignUp = true ;
-    res.render('signup' , {headText: 'SIGN UP' , isSignUp});
+    res.render('signup');
 });
 
 router.get('/signin' , (req,res) => {
     res.render('signin');
 });
 
-// sign up router
+// sign up router / User Registration
 router.post('/save' , (req,res) => {
     const {name , email , password} = req.body ;
 
@@ -75,6 +67,85 @@ router.post('/save' , (req,res) => {
 });
 
 
+// login route
+router.post('/login' , (req,res) => {
+    const {email , password} = req.body ;
+    findUser();
+    async function findUser() {
+        try {
+            const user = await User.find({email: email , password: password});
+            if(user.length === 1) {
+                // console.log(user);
+                session=req.session;
+                session.userid = email;
+                // console.log(req.session)
+                // res.render('home' , {userName: user[0].fullName , userEmail: user[0].email})
+                res.redirect('/user');
+            } else {
+                console.log(user)
+                res.render('signin' , {isRegitered: true , errMessage: `User doesn't exist , Please enter valid email and password` , userEmail: email , userPassword: password});
+                // res.redirect('/user');
+            }
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+})
+
+
+
+// logout route
+router.get('/logout',(req,res) => {
+    req.session.destroy();
+    res.redirect('/user');
+});
+
+
+
+
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//// Saving / Registering user using get method
+
 // signin router
 // router.get('/login' , (req, res) => {
 //     const {email , password} = req.query ;
@@ -99,39 +170,26 @@ router.post('/save' , (req,res) => {
 // })
 
 
-// router.post('/login' , (req,res) => {
-//     const {email , password} = req.body ;
-//     findUser();
-//     async function findUser() {
-//         try {
-//             const user = await User.find({email: email , password: password});
-//             if(user.length === 1) {
-//                 console.log(user);
-//                 session=req.session;
-//                 session.userid = email;
-//                 console.log(req.session)
-//                 // res.render('home' , {userName: user[0].fullName , userEmail: user[0].email})
-//                 res.redirect('/user');
-//             } else {
-//                 console.log(user)
-//                 res.render('signin' , {isRegitered: true , errMessage: `User doesn't exist , Please enter valid email and password` , userEmail: email , userPassword: password});
-//                 // res.redirect('/user');
-//             }
-
-//         } catch (e) {
-//             console.log(e);
-//         }
-//     }
-// })
 
 
-// router.get('/logout',(req,res) => {
-//     req.session.destroy();
-//     res.redirect('/user');
-// });
+// checking if user is logged in // get('/user')
+
+// session=req.session;
+    // console.log(session.userid)
+    // if(session.userid){
+    //     try {
+    //         const user = await User.find({email: session.userid})
+    //         res.render('home' , {userName: user[0].fullName , userEmail: user[0].email})
+    //     } catch(e) {
+    //         console.log(e);
+    //       }
+    // } else {
+    //    res.render('signup');
+    // }
 
 
 
 
 
-module.exports = router;
+
+

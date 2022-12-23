@@ -1,9 +1,27 @@
 const express = require('express');
-const User = require('../../models/User');
 const router = express.Router();
 
+// const sessions = require('express-session');
+// const cookieParser = require("cookie-parser");
 
-router.get('/dashboard' ,  async (req,res) => {
+// const oneDay = 1000 * 60 * 60 * 24;
+// router.use(cookieParser());
+
+// router.use(sessions({
+//     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+//     saveUninitialized:true,
+//     cookie: { maxAge: oneDay },
+//     resave: false
+// }));
+
+
+const {isAuthenticated, isAdmin} = require('../../middlewares/auth');
+const User = require('../../models/User');
+
+
+
+
+router.get('/dashboard', isAuthenticated , isAdmin ,  async (req,res) => {
 
     const userList  = await User.find({});
     // console.log(userList)
@@ -12,27 +30,59 @@ router.get('/dashboard' ,  async (req,res) => {
 });
 
 
-router.delete('/user/:id' , async (req,res) => {
-    const {id} = req.params ;
-    console.log(id);
-    try {
-        const user = await User.findByIdAndDelete({_id:id});
-        console.log(user);
-    } catch(e) {
-        console.log(e);
-    }
-    
-    res.json({redirect: '/admin/dashboard'});
+router.get('/adduser' , isAuthenticated , isAdmin , (req,res) => {
+    res.render('newuser');
 })
 
-router.get('/user/:id' , async (req,res) => {
+
+router.post('/adduser' , (req,res) => {
+    const {name , email , password} = req.body ;
+
+    checkUser();
+    async function checkUser() {
+        try {
+            const existingUser = await User.find({email: email});
+            console.log(existingUser);
+            if(existingUser.length === 1) {
+                console.log(existingUser)
+                return res.render('newuser' , { isRegitered: true , errMessage: 'User alredy exist.. Please try with another email' });
+            } else {
+                createUser();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    
+    // createUser();
+    async function createUser() {
+        try {
+            const newUser = await User.create({
+                fullName: name ,
+                email: email ,
+                password: password
+            });
+            console.log(newUser);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    res.redirect('/admin/dashboard');
+
+
+});
+
+
+router.get('/user/:id' , isAuthenticated , isAdmin, async (req,res) => {
     const {id} = req.params ;
     const user = await User.find({_id: id});
     console.log(user);
     res.render('update' , {user: user[0]} )
 })
 
-router.put('/update/:id' , async (req,res) => {
+
+router.put('/update/:id' , isAuthenticated , isAdmin,  async (req,res) => {
     const {id} = req.params ;
     const {name , email , password} = req.body;
     console.log(id);
@@ -54,6 +104,23 @@ router.put('/update/:id' , async (req,res) => {
 
     res.json({redirect: '/admin/dashboard'});
 })
+
+
+router.delete('/user/:id' , isAuthenticated , isAdmin, async (req,res) => {
+    const {id} = req.params ;
+    console.log(id);
+    try {
+        const user = await User.findByIdAndDelete({_id:id});
+        console.log(user);
+    } catch(e) {
+        console.log(e);
+    }
+    
+    res.json({redirect: '/admin/dashboard'});
+})
+
+
+
 
 module.exports = router;
 

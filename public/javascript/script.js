@@ -138,6 +138,7 @@ async function deleteUser(e) {
     console.log(url);
     const res = await fetch(url, {
                     method: 'DELETE',
+                    credentials: "same-origin",
                     headers: {
                     'Content-Type' : 'application/json'
                     },
@@ -158,6 +159,7 @@ async function sendUpdateReq(){
     console.log(url);
     const res = await fetch(url, {
                     method: 'PUT',
+                    credentials: "same-origin",
                     headers: {
                         'Content-Type': 'application/json'
                     },

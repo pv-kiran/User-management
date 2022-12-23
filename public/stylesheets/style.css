@@ -140,7 +140,7 @@ input[type='text']:focus , input[type='password']:focus {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #04AA6D;
+    background-color: rgb(12, 57, 192);
     color: white;
   }
 
@@ -156,11 +156,49 @@ input[type='text']:focus , input[type='password']:focus {
 }
 
 .btn-view {
-   background-color: rgb(47, 68, 68);
+   background-color: rgb(76, 147, 76);
 }
 .btn-edit{
   background-color: rgb(78, 144, 230);
 }
 .btn-delete {
    background-color: rgb(216, 28, 28);
+}
+
+.head-bar {
+  width:  75%;
+  margin: auto;
+  margin-bottom: 2.5rem;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-add {
+  display: inline-block;
+  background-color: rgb(12, 57, 192);
+  color: white;
+  padding: 1rem 1.5rem;
+  font-size: 1.3rem;
+  border-radius: .3rem;
+
+}
+.btn-add:hover {
+    text-decoration: none;
+    color: #ddd;
+}
+
+
+#search {
+   border-bottom: 1px green solid;
+   width: 30rem;
+}
+
+.btn-srch {
+  background-color: rgb(12, 57, 192);
+  border: none;
+  padding: .5rem 1rem;
+  font-size: 1.4rem;
+  color: #f2f2f2;
+  border-radius: .5rem;
 }

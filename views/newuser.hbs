@@ -1,0 +1,17 @@
+<section class="signup-body">
+    <div class="signup-container">
+    <h2>ADD USER</h2>
+    <form action="/admin/adduser" method="post" class="signup" id="form">
+
+           <input type="text" name="name" id="name" placeholder="Name" autocomplete="off">
+           <input type="text" name="email" id="email" placeholder="Email" autocomplete="off">
+           <input type="password" name="password" id="password" placeholder="Password" autocomplete="off">
+           <input type="password" name="confirmPswd" id="confirmPswd" placeholder="Confirm password" autocomplete="off">
+           <input type="submit" value="Submit" class="submit">
+           <div class="error"></div>
+           {{#if isRegitered}}
+                <div class="errorMsg">{{errMessage}}</div>
+           {{/if}}
+    </form>
+</div>
+</section>
