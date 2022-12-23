@@ -1,17 +1,36 @@
 console.log("Hello");
 
+
+// client side vallidation
+
 let form = document.querySelector("#form");
+let updateForm = document.querySelector('#updateForm');
 
-// let signInForm = document.querySelector('#loginForm');
+
+if(form) {
+    form.addEventListener('submit' , function(e) {
+        e.preventDefault(); 
+        let isValid = validate();
+        if(isValid) {
+            document.querySelector("#form").submit();
+        }
+    })
+}
 
 
-form.addEventListener('submit' , function(e) {
-    e.preventDefault(); 
-    let isValid = validate();
-    if(isValid) {
-        document.querySelector("#form").submit();
-    }
-})
+if(updateForm) {
+    updateForm.addEventListener('submit' , function(e) {
+        e.preventDefault();
+        let isValid = validate();
+        if(isValid) {
+            console.log('Loger error');
+            sendUpdateReq();
+        }
+    })
+}
+
+
+
 
 function validate() {
     // var name = document.querySelector('#name').value;
@@ -37,8 +56,7 @@ function validate() {
         err.style.height = '4rem';
         return false;
         }
-
-    }
+}
 
     
     
@@ -59,10 +77,13 @@ function validate() {
     }
 
 
+
+
+
     if(document.querySelector('#confirmPswd')) {
         var confirmPswd = document.querySelector('#confirmPswd').value;
-        console.log(confirmPswd);
-        console.log(password);
+        // console.log(confirmPswd);
+        // console.log(password);
         
         if( confirmPswd === '' ) {
             text = "Please cofirm the password";
@@ -81,6 +102,198 @@ function validate() {
     
     return true;
 }
+
+
+
+// Sending user updation request
+
+let editItems = document.querySelector('table');
+if(editItems) {
+    editItems.addEventListener('click' , (e) => {
+        if(e.target.classList.contains('btn-delete')) {
+            deleteUser(e);
+        }
+        else if(e.target.classList.contains('btn-edit')) {
+             editUser(e);
+        }
+    
+        // else if(e.target.classList.contains('btn-view')) {
+        //     viewUser(e);
+        // }
+        
+    })
+}
+
+
+
+function editUser(e) {
+   const userId = e.target.dataset.url;
+   console.log(userId);
+}
+
+async function deleteUser(e) {
+    const userId = e.target.dataset.url;
+    console.log(userId);
+    const url = `http://localhost:3000/admin/user/${userId}` ;
+    console.log(url);
+    const res = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                    'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                    id: userId
+                    })
+                });
+                
+    const redirectPath = await res.json();
+    window.location.href = redirectPath.redirect;
+    
+}
+
+async function sendUpdateReq(){
+    const userId = document.getElementById('btn-update').dataset.url;
+    console.log(userId);
+    const url = `http://localhost:3000/admin/update/${userId}`;
+    console.log(url);
+    const res = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value
+                    })
+                })
+    const redirectPath = await res.json();
+    window.location.href = redirectPath.redirect;
+}
+
+
+
+
+
+
+
+
+
+// function viewUser(e) {
+//     console.log(e.target.dataset.url)
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let deleteBtn = document.g
+
+// function sendDeleteReq(e){
+//     console.log(e);
+//     // const data = document.getElementById('delete-button').dataset.url;
+//     // console.log(data)
+//     // const url = `http://localhost:3000/admin/user/${data}` ;
+//     // // console.log(url);
+//     // fetch(url, {
+//     //   method: 'DELETE',
+//     //   headers: {
+//     //     'Content-Type' : 'application/json'
+//     //   },
+//     //   body: JSON.stringify({
+//     //     id: data
+//     //   })
+//     // })
+//   }
+
+
+// const url = `http://localhost:3000/admin/user/${data}` ;
+//     // console.log(url);
+// fetch(url, {
+//     method: 'DELETE',
+//     headers: {
+//       'Content-Type' : 'application/json'
+//     },
+//     body: JSON.stringify({
+//       id: data
+//     })
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // signInForm.addEventListener('submit' , function(e) {
 //     e.preventDefault(); 

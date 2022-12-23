@@ -9,7 +9,9 @@
            <input type="password" name="confirmPswd" id="confirmPswd" placeholder="Confirm password" autocomplete="off">
            <input type="submit" value="Submit" class="submit">
            <div class="error"></div>
-
+           {{#if isRegitered}}
+                <div class="errorMsg">{{errMessage}}</div>
+           {{/if}}
     </form>
 </div>
 </section>

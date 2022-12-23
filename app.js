@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const Handlebars = require('handlebars')
 const hbs = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
+var cors = require('cors')
 const mongoose = require('mongoose');
 
 
@@ -15,6 +18,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+
+app.use(cors())
 
 
 
@@ -53,6 +58,7 @@ app.engine(
     defaultLayout: "layout",
     layoutDir: __dirname + "/views/layout/",
     partialsDir: __dirname + "/views/partials",
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
   })
 );
 
@@ -61,16 +67,14 @@ app.engine(
 
 // route setup
 
-app.get('/',(req,res) => {
-  session=req.session;
-  if(session.userid){
-      res.render('home');
-  } else {
-
-     res.render('signup');
-
-  }
-});
+// app.get('/',(req,res) => {
+//   session=req.session;
+//   if(session.userid){
+//       res.render('home');
+//   } else {
+//      res.render('signup');
+//   }
+// });
 
 
 

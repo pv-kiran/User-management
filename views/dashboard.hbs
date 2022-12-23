@@ -1,0 +1,24 @@
+
+
+
+
+<h1 class="dashboard-head">ADMIN DASHBOARD</h1>
+
+<table id="customers">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>ACTION</th>
+  </tr>
+  {{#each list}}
+  <tr class="edit-row">
+    <td>{{fullName}}</td>
+    <td>{{email}}</td>
+    <td >
+        <a class="btn btn-view" href="/admin/user/{{_id}}">View</a>
+        {{!-- <a class="btn btn-edit" data-url="{{_id}}">Edit</a> --}}
+        <a class="btn btn-delete" data-url="{{_id}}">Delete</a>
+    </td>
+  </tr>
+  {{/each}}
+</table>
