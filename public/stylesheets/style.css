@@ -23,8 +23,8 @@ html {
     background-color: rgb(236, 235, 238);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     border-radius: 1rem;
     padding: 3rem;
 }
@@ -35,8 +35,9 @@ html {
     margin-top: 3rem;
 }
 
-input[type='text'] , input[type='password'] {
-    width: 40rem;
+input[type='text'] , input[type='password'] , input[type='submit'] {
+    width: 80%;
+    margin: auto;
     margin-bottom: .5rem;
     padding: .8rem .5rem;
     border: none;
@@ -61,12 +62,14 @@ input[type='text']:focus , input[type='password']:focus {
 
 .signup-container h2 {
    font-size: 5rem;
+   text-align:center;
 }
 
 .error {
-    width: 40rem;
+    width: 80%;
+    
     height: 0;
-    margin: 1.5rem 0;
+    margin: 1.5rem auto;
     background-color: rgb(220, 95, 95);
     /* transform: scale(0); */
     /* display: none; */
@@ -92,15 +95,16 @@ input[type='text']:focus , input[type='password']:focus {
 .btn-logout {
     display: block;
     background-color: rgb(220, 68, 68);
-    width: 10rem;
+    width: 15rem;
     padding: .5rem .3rem;
     border-radius: .4rem;
     color: white;
     text-decoration: none;
     font-size: 1.5rem;
     text-align: center;
+    margin-top: 2rem;
 }
-.btn-logout:hover {
+.btn-logout:hover , .btn-admin:hover  {
     text-decoration: none;
     color: antiquewhite;
 }
@@ -112,6 +116,11 @@ input[type='text']:focus , input[type='password']:focus {
     align-items: center;
 }
 
+
+.dashboard {
+  width: 80%;
+  margin: auto;
+}
 
 
 /* Dashboard styling */
@@ -171,6 +180,7 @@ input[type='text']:focus , input[type='password']:focus {
   margin-bottom: 2.5rem;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -188,17 +198,63 @@ input[type='text']:focus , input[type='password']:focus {
     color: #ddd;
 }
 
-
-#search {
-   border-bottom: 1px green solid;
-   width: 30rem;
+.search-form {
+  display: flex;
+  justify-content: space-between;
 }
 
-.btn-srch {
+#search {
+  
+   border-bottom: 1px green solid;
+   width: 50rem;
+   margin-right: 2rem;
+}
+
+.btn-srch  {
   background-color: rgb(12, 57, 192);
   border: none;
-  padding: .5rem 1rem;
+  padding: .5rem .5rem;
   font-size: 1.4rem;
   color: #f2f2f2;
   border-radius: .5rem;
+  justify-self: end;
+}
+
+.logout-container {
+  width: 75%;
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-admin {
+  display: inline-block;
+  background-color: rgb(52, 52, 186);
+  font-size: 1.3rem;
+  color: white;
+  margin-top: 1rem;
+  width: 15rem;
+  padding: 1rem;
+  border-radius: .4rem;
+}
+
+@media (max-width:940px) {
+  .signup-container {
+    width: 95%;
+    margin: auto;
+  }
+  .head-bar {
+    flex-direction: column;
+  }
+  #search {
+     width: 85%;
+  }
+  .search-form {
+    width: 80%;
+    margin: 2rem auto;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }

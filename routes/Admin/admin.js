@@ -42,7 +42,7 @@ router.get('/user/:id' , isAuthenticated , isAdmin, getUser );
 router.put('/update/:id' , isAuthenticated , isAdmin,  updateUser)
 
 
-router.post('/search' , isAdmin , isAuthenticated , searchUser)
+router.post('/search' ,isAuthenticated , isAdmin ,  searchUser)
 
 
 router.delete('/user/:id' , isAuthenticated , isAdmin, deleteUser)

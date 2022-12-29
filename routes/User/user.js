@@ -14,25 +14,24 @@ const User = require('../../models/User');
 
 
 
+
+// home page for user // user details page
 router.get('/' , isAuthenticated  , getUserDetails);
 
 
-
-
-// signup 
+// signup page router 
 router.get('/signup' , getSignUpPage);
 
 
-// signin router
+// signin page  router
 router.get('/signin' , getSigninPage );
 
-// sign up router for  / User Registration
+// sign up router  / User Registration
 router.post('/save' , userRegistration);
 
 
 // login route
 router.post('/login' , userLogin)
-
 
 
 // logout route

@@ -1,31 +1,74 @@
 
 
 
+<section class="dashboard">
+      <h1 class="dashboard-head">ADMIN DASHBOARD</h1>
+      <div class="head-bar">
+        <a href="/admin/adduser" class="btn-add">ADD USER</a>
+        <form action="/admin/search" method="post" class="search-form">
+          <input type="text" name="search" id="search" autocomplete="off" placeholder="please enter name" required>
+          <input type="submit" value="Search" class="btn-srch">
+        </form>
+      </div>
 
-<h1 class="dashboard-head">ADMIN DASHBOARD</h1>
-<div class="head-bar">
-  <a href="/admin/adduser" class="btn-add">ADD USER</a>
-  <form action="/admin/search" method="post">
-     <input type="text" name="search" id="search" autocomplete="off">
-     <input type="submit" value="Search" class="btn-srch">
-  </form>
-</div>
+      <table class="table">
+        <thead class="table-primary">
+          <tr>
+            {{!-- <th scope="col">#</th> --}}
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each list}}
+          <tr>
+            <td style="font-size: 1.5rem;">{{fullName}}</td>
+            <td style="font-size: 1.5rem;">{{email}}</td>
+            <td>
+              <a class="btn btn-view" href="/admin/user/{{_id}}">EDIT</a>
+              {{!-- <a class="btn btn-edit" data-url="{{_id}}">Edit</a>  --}}
+              <a class="btn btn-delete" data-url="{{_id}}">DELETE</a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      
 
-<table id="customers">
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>ACTION</th>
-  </tr>
-  {{#each list}}
-  <tr class="edit-row">
-    <td>{{fullName}}</td>
-    <td>{{email}}</td>
-    <td>
-        <a class="btn btn-view" href="/admin/user/{{_id}}">EDIT</a>
-        {{!-- <a class="btn btn-edit" data-url="{{_id}}">Edit</a> --}}
-        <a class="btn btn-delete" data-url="{{_id}}">DELETE</a>
-    </td>
-  </tr>
-  {{/each}}
-</table>
+      <div class="logout-container">
+        <a class="btn-logout" href="/user/logout">LogOut</a>
+      </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <table id="customers">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>ACTION</th>
+        </tr>
+        {{#each list}}
+        <tr class="edit-row">
+          <td>{{fullName}}</td>
+          <td>{{email}}</td>
+          <td>
+              <a class="btn btn-view" href="/admin/user/{{_id}}">EDIT</a>
+              {{!-- <a class="btn btn-edit" data-url="{{_id}}">Edit</a>  
+              <a class="btn btn-delete" data-url="{{_id}}">DELETE</a>
+          </td>
+        </tr>
+        {{/each}}
+      </table>  --}}

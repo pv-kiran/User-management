@@ -3,7 +3,10 @@
         <section class="info-container">
         <h1>Name : {{userName}}</h1>
         <h1>Email: {{userEmail}}</h1>
-        <a class="btn-logout" href="/user/logout">LOG OUT</a> 
+             <a class="btn-logout" href="/user/logout">LOG OUT</a>
+             {{#if isAdmin}} 
+               <a class="btn-admin" href="/admin/dashboard">ADMIN DASHBOARD</a>
+             {{/if}}
         </section>
    </div>
 

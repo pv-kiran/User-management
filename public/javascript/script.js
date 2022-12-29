@@ -1,7 +1,7 @@
 console.log("Hello");
 
 
-// client side vallidation
+// client side validation
 
 let form = document.querySelector("#form");
 let updateForm = document.querySelector('#updateForm');
@@ -56,7 +56,7 @@ function validate() {
         err.style.height = '4rem';
         return false;
         }
-}
+    }
 
     
     
